@@ -43,7 +43,8 @@
     "husky": "^9.1.7",
     "lint-staged": "^16.4.0",
     "prettier": "^3.8.3",
-    "secretlint": "^12.2.0"
+    "secretlint": "^12.2.0",
+    "vitest": "^2.0.0"
   },
   "engines": {
     "node": ">=22.x"
@@ -59,10 +60,9 @@
     "build:sovereign": "./scripts/sovereign-build.sh",
     "contracts:check": "node scripts/verify-contract-sync.mjs",
     "dev:stack": "node scripts/dev-stack.mjs",
-    "forge": "go run dev.go",
-    "playwright:install:chromium": "playwright install chromium || echo 'playwright not installed; skipping' && exit 0",
     "prepare": "husky",
     "profile:slo": "node scripts/profile-slo.mjs",
+    "test": "vitest run",
     "test:e2e:baseline": "node scripts/aggregate-e2e-baseline.mjs",
     "test:e2e:real": "node scripts/run-e2e-real.mjs",
     "test:tier1": "node scripts/preflight-check.mjs",
@@ -71,12 +71,5 @@
     "test:tier4": "node scripts/run-real-e2e.mjs",
     "typecheck": "tsc --noEmit"
   },
-  "type": "module",
-  "workspaces": [
-    "core",
-    "agents",
-    "sidecar",
-    "sandbox",
-    "plugins"
-  ]
+  "type": "module"
 }
