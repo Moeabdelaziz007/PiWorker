@@ -1,75 +1,45 @@
 {
   "name": "piworker-os",
   "version": "2.0.0",
-  "aix": {
-    "stackVersion": "0.369.0",
-    "stackCodename": "Echo369",
-    "spec": "AIX/1.0",
-    "layer": "L5",
-    "layerName": "satellite-pi",
-    "authority": "axiomid.app"
-  },
-  "browser": {
-    "node:fs": false,
-    "node:path": false,
-    "node:crypto": false,
-    "node:child_process": false,
-    "node:util": false,
-    "fs": false,
-    "path": false,
-    "crypto": false,
-    "child_process": false,
-    "util": false,
-    "tls": false,
-    "net": false,
-    "dns": false,
-    "@grpc/grpc-js": false,
-    "@grpc/proto-loader": false
+  "private": true,
+  "workspaces": [
+    "core",
+    "plugins/*",
+    "src"
+  ],
+  "scripts": {
+    "build:cli": "go build -o bin/piworker-cli cmd/piworker/main.go",
+    "dev": "wrangler dev",
+    "deploy": "wrangler deploy",
+    "test": "vitest run",
+    "typecheck": "tsc --noEmit",
+    "lint": "prettier --check \"**/*.{ts,tsx,js,json,md}\"",
+    "format": "prettier --write \"**/*.{ts,tsx,js,json,md}\"",
+    "prepare": "husky"
   },
   "dependencies": {
     "@google/generative-ai": "^0.21.0",
-    "@grpc/grpc-js": "^1.14.3",
-    "@grpc/proto-loader": "^0.8.0",
-    "@upstash/redis": "^1.38.1",
-    "axios": "^1.7.7",
-    "ts-node": "^10.9.2",
-    "typescript": "^5",
-    "zod": "^4.4.3"
+    "zod": "^3.23.0"
   },
   "devDependencies": {
+    "@cloudflare/workers-types": "^4.20241205.0",
     "@secretlint/secretlint-rule-preset-recommend": "^12.2.0",
-    "@types/node": "^26",
-    "dotenv": "^16.4.5",
+    "@types/node": "^20",
     "husky": "^9.1.7",
-    "lint-staged": "^16.4.0",
-    "prettier": "^3.8.3",
+    "lint-staged": "^15.2.0",
+    "prettier": "^3.3.0",
     "secretlint": "^12.2.0",
-    "vitest": "^2.0.0"
+    "typescript": "^5.5.0",
+    "vitest": "^2.0.0",
+    "wrangler": "^3.80.0"
   },
   "engines": {
-    "node": ">=22.x"
+    "node": ">=20.x"
   },
   "lint-staged": {
     "*.{js,ts,tsx,md,json}": [
       "prettier --write"
     ]
-  },
-  "private": true,
-  "scripts": {
-    "build:cli": "go build -o bin/piworker-cli cmd/piworker/main.go",
-    "build:sovereign": "./scripts/sovereign-build.sh",
-    "contracts:check": "node scripts/verify-contract-sync.mjs",
-    "dev:stack": "node scripts/dev-stack.mjs",
-    "prepare": "husky",
-    "profile:slo": "node scripts/profile-slo.mjs",
-    "test": "vitest run",
-    "test:e2e:baseline": "node scripts/aggregate-e2e-baseline.mjs",
-    "test:e2e:real": "node scripts/run-e2e-real.mjs",
-    "test:tier1": "node scripts/preflight-check.mjs",
-    "test:tier2": "node scripts/run-node-unit-tests.mjs",
-    "test:tier3": "node scripts/bridge-handshake.mjs",
-    "test:tier4": "node scripts/run-real-e2e.mjs",
-    "typecheck": "tsc --noEmit"
   },
   "type": "module"
 }
