@@ -56,6 +56,29 @@ jobs:
       - name: Secret scan (Secretlint)
         run: npx secretlint "**/*" || true
 
+      - name: Container security scan (Trivy)
+        uses: aquasecurity/trivy-action@master
+        with:
+          scan-type: 'fs'
+          scan-ref: '.'
+          format: 'sarif'
+          output: 'trivy-results.sarif'
+          severity: 'CRITICAL,HIGH'
+
+      - name: Upload Trivy results
+        uses: github/codeql-action/upload-sarif@v3
+        with:
+          sarif_file: 'trivy-results.sarif'
+
+      - name: Go vulnerability scan (govulncheck)
+        run: |
+          go install golang.org/x/vuln/cmd/govulncheck@latest
+          govulncheck ./... || true
+
+      - name: Real E2E Tests
+        if: github.event_name == 'pull_request' || github.ref == 'refs/heads/main'
+        run: npm run test:e2e:real || true
+
       - name: Generate release checklist
         run: |
           cat > release-checklist.md <<'EOF2'
