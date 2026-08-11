@@ -7,7 +7,7 @@ import (
 	"strings"
 	"testing"
 
-	"github.com/Moeabdelaziz007/PiWorker-OS/sidecar/sovereign-engine/pkg/config"
+	"github.com/pai-list/PiWorker/sidecar/sovereign-engine/pkg/config"
 )
 
 func captureStdout(t *testing.T, fn func()) string {

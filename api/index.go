@@ -11,10 +11,10 @@ import (
 	"strings"
 	"time"
 
-	bridgelog "github.com/Moeabdelaziz007/PiWorker-OS/sidecar/sovereign-engine/pkg/log"
-	pb "github.com/Moeabdelaziz007/PiWorker-OS/sidecar/sovereign-engine/pkg/pb"
-	"github.com/Moeabdelaziz007/PiWorker-OS/sidecar/sovereign-engine/pkg/server"
-	"github.com/Moeabdelaziz007/PiWorker-OS/sidecar/sovereign-engine/pkg/finance"
+	bridgelog "github.com/pai-list/PiWorker/sidecar/sovereign-engine/pkg/log"
+	pb "github.com/pai-list/PiWorker/sidecar/sovereign-engine/pkg/pb"
+	"github.com/pai-list/PiWorker/sidecar/sovereign-engine/pkg/server"
+	"github.com/pai-list/PiWorker/sidecar/sovereign-engine/pkg/finance"
 	"google.golang.org/grpc/metadata"
 )
 

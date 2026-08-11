@@ -1,4 +1,4 @@
-module github.com/Moeabdelaziz007/PiWorker-OS
+module github.com/pai-list/PiWorker
 
 go 1.25.0
 
