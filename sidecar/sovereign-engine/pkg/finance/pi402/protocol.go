@@ -7,7 +7,7 @@ import (
 	"log"
 	"sync"
 
-	"github.com/Moeabdelaziz007/PiWorker-OS/sidecar/sovereign-engine/pkg/finance"
+	"github.com/pai-list/PiWorker/sidecar/sovereign-engine/pkg/finance"
 )
 
 /**

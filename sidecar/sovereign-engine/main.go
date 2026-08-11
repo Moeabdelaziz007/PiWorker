@@ -14,8 +14,8 @@ import (
 	"strings"
 	"time"
 
-	pb "github.com/Moeabdelaziz007/PiWorker-OS/sidecar/sovereign-engine/pkg/pb"
-	"github.com/Moeabdelaziz007/PiWorker-OS/sidecar/sovereign-engine/pkg/server"
+	pb "github.com/pai-list/PiWorker/sidecar/sovereign-engine/pkg/pb"
+	"github.com/pai-list/PiWorker/sidecar/sovereign-engine/pkg/server"
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/codes"
 	"google.golang.org/grpc/metadata"

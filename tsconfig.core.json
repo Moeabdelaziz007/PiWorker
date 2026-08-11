@@ -10,11 +10,10 @@
     "esModuleInterop": true,
     "skipLibCheck": true,
     "forceConsistentCasingInFileNames": true,
-    "noEmit": false,
+    "noEmit": true,
     "resolveJsonModule": true,
-    "allowJs": true,
     "isolatedModules": true
   },
-  "include": ["core/**/*", "scripts/**/*"],
-  "exclude": ["app/**/*", "node_modules"]
+  "include": ["core/**/*", "plugins/**/*", "src/**/*"],
+  "exclude": ["node_modules", "dist"]
 }

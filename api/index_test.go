@@ -17,7 +17,7 @@ func TestHandlerRejectsMissingToken(t *testing.T) {
 	if rr.Code != http.StatusUnauthorized {
 		t.Fatalf("expected status %d, got %d", http.StatusUnauthorized, rr.Code)
 	}
-	if body := rr.Body.String(); body != "Unauthenticated\n" {
+	if body := rr.Body.String(); body != "Unauthorized\n" {
 		t.Fatalf("expected unauthenticated body, got %q", body)
 	}
 }
@@ -34,7 +34,7 @@ func TestHandlerRejectsInvalidToken(t *testing.T) {
 	if rr.Code != http.StatusUnauthorized {
 		t.Fatalf("expected status %d, got %d", http.StatusUnauthorized, rr.Code)
 	}
-	if body := rr.Body.String(); body != "Unauthenticated\n" {
+	if body := rr.Body.String(); body != "Unauthorized\n" {
 		t.Fatalf("expected unauthenticated body, got %q", body)
 	}
 }

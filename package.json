@@ -1,83 +1,45 @@
 {
   "name": "piworker-os",
   "version": "2.0.0",
-  "aix": {
-    "stackVersion": "0.369.0",
-    "stackCodename": "Echo369",
-    "spec": "AIX/1.0",
-    "layer": "L5",
-    "layerName": "satellite-pi",
-    "authority": "axiomid.app"
-  },
-  "type": "module",
   "private": true,
   "workspaces": [
     "core",
-    "agents",
-    "sidecar",
-    "sandbox",
-    "plugins"
+    "plugins/*",
+    "src"
   ],
-  "engines": {
-    "node": ">=22.x"
-  },
-  "browser": {
-    "node:fs": false,
-    "node:path": false,
-    "node:crypto": false,
-    "node:child_process": false,
-    "node:util": false,
-    "fs": false,
-    "path": false,
-    "crypto": false,
-    "child_process": false,
-    "util": false,
-    "tls": false,
-    "net": false,
-    "dns": false,
-    "@grpc/grpc-js": false,
-    "@grpc/proto-loader": false
-  },
   "scripts": {
-    "dev:stack": "node scripts/dev-stack.mjs",
-    "build:sovereign": "./scripts/sovereign-build.sh",
     "build:cli": "go build -o bin/piworker-cli cmd/piworker/main.go",
-    "forge": "go run dev.go",
+    "dev": "wrangler dev",
+    "deploy": "wrangler deploy",
+    "test": "vitest run",
     "typecheck": "tsc --noEmit",
-    "profile:slo": "node scripts/profile-slo.mjs",
-    "contracts:check": "node scripts/verify-contract-sync.mjs",
-    "test:tier1": "node scripts/preflight-check.mjs",
-    "test:tier2": "node scripts/run-node-unit-tests.mjs",
-    "test:tier3": "node scripts/bridge-handshake.mjs",
-    "test:tier4": "node scripts/run-real-e2e.mjs",
-    "test:e2e:real": "node scripts/run-real-e2e.mjs",
-    "test:e2e:baseline": "node scripts/aggregate-e2e-baseline.mjs",
-    "playwright:install:chromium": "playwright install chromium || echo 'playwright not installed; skipping' && exit 0",
-    "prepare": "husky",
-    "test:e2e:real": "node scripts/run-e2e-real.mjs"
+    "lint": "prettier --check \"**/*.{ts,tsx,js,json,md}\"",
+    "format": "prettier --write \"**/*.{ts,tsx,js,json,md}\"",
+    "prepare": "husky"
   },
   "dependencies": {
     "@google/generative-ai": "^0.21.0",
-    "@grpc/grpc-js": "^1.14.3",
-    "@grpc/proto-loader": "^0.8.0",
-    "axios": "^1.7.7",
-    "ts-node": "^10.9.2",
-    "typescript": "^5.0.0",
-    "@upstash/redis": "^1.34.4",
-    "zod": "^3.23.8"
+    "zod": "^3.23.0"
   },
   "devDependencies": {
+    "@cloudflare/workers-types": "^4.20241205.0",
     "@secretlint/secretlint-rule-preset-recommend": "^12.2.0",
     "@types/node": "^20",
     "husky": "^9.1.7",
-    "lint-staged": "^16.4.0",
-    "prettier": "^3.8.3",
+    "lint-staged": "^15.2.0",
+    "prettier": "^3.3.0",
     "secretlint": "^12.2.0",
-    "dotenv": "^16.4.5"
+    "typescript": "^5.5.0",
+    "vitest": "^2.0.0",
+    "wrangler": "^3.80.0"
+  },
+  "engines": {
+    "node": ">=20.x"
   },
   "lint-staged": {
     "*.{js,ts,tsx,md,json}": [
       "prettier --write"
     ]
-  }
+  },
+  "type": "module"
 }

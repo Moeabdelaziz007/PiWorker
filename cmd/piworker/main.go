@@ -13,8 +13,8 @@ import (
 	"syscall"
 	"time"
 
-	"github.com/Moeabdelaziz007/PiWorker-OS/sidecar/sovereign-engine/pkg/config"
-	"github.com/Moeabdelaziz007/PiWorker-OS/sidecar/sovereign-engine/pkg/crypto"
+	"github.com/pai-list/PiWorker/sidecar/sovereign-engine/pkg/config"
+	"github.com/pai-list/PiWorker/sidecar/sovereign-engine/pkg/crypto"
 )
 
 /**

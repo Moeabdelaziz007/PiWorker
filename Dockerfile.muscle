@@ -14,7 +14,7 @@ COPY go.mod go.sum ./
 RUN go mod download
 
 # Copy the entire monorepo source
-# Required for resolving github.com/Moeabdelaziz007/PiWorker-OS/sidecar/...
+# Required for resolving github.com/pai-list/PiWorker/sidecar/ (org-hygiene rename)...
 COPY . .
 
 # Build the Sovereign Muscle

@@ -7,7 +7,7 @@ import (
 	"net/http"
 	"os"
 
-	pb "github.com/Moeabdelaziz007/PiWorker-OS/sidecar/sovereign-engine/pkg/pb"
+	pb "github.com/pai-list/PiWorker/sidecar/sovereign-engine/pkg/pb"
 )
 
 // ConnectLiteHandler provides a Connect-RPC compatible JSON bridge for the SovereignService.

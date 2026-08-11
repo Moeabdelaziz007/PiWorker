@@ -13,23 +13,21 @@ import (
 	"sync"
 	"time"
 
-	"github.com/Moeabdelaziz007/PiWorker-OS/sidecar/sovereign-engine/pkg/bridge"
-	"github.com/Moeabdelaziz007/PiWorker-OS/sidecar/sovereign-engine/pkg/engine"
-	"github.com/Moeabdelaziz007/PiWorker-OS/sidecar/sovereign-engine/pkg/finance"
-	"github.com/Moeabdelaziz007/PiWorker-OS/sidecar/sovereign-engine/pkg/finance/pi402"
-	"github.com/Moeabdelaziz007/PiWorker-OS/sidecar/sovereign-engine/pkg/memory"
-	"github.com/Moeabdelaziz007/PiWorker-OS/sidecar/sovereign-engine/pkg/identity"
-	pb "github.com/Moeabdelaziz007/PiWorker-OS/sidecar/sovereign-engine/pkg/pb"
-	"github.com/Moeabdelaziz007/PiWorker-OS/sidecar/sovereign-engine/pkg/sandbox"
-	"github.com/Moeabdelaziz007/PiWorker-OS/sidecar/sovereign-engine/pkg/finance/escrow"
+	"github.com/pai-list/PiWorker/sidecar/sovereign-engine/pkg/bridge"
+	"github.com/pai-list/PiWorker/sidecar/sovereign-engine/pkg/engine"
+	"github.com/pai-list/PiWorker/sidecar/sovereign-engine/pkg/finance"
+	"github.com/pai-list/PiWorker/sidecar/sovereign-engine/pkg/finance/pi402"
+	"github.com/pai-list/PiWorker/sidecar/sovereign-engine/pkg/memory"
+	"github.com/pai-list/PiWorker/sidecar/sovereign-engine/pkg/identity"
+	pb "github.com/pai-list/PiWorker/sidecar/sovereign-engine/pkg/pb"
+	"github.com/pai-list/PiWorker/sidecar/sovereign-engine/pkg/sandbox"
+	"github.com/pai-list/PiWorker/sidecar/sovereign-engine/pkg/finance/escrow"
 	"google.golang.org/grpc/codes"
 	"google.golang.org/grpc/status"
 )
 
 type SovereignServer struct {
 	pb.UnimplementedSovereignServiceServer
-	QuantumMirror      *engine.QuantumMirror
-	Vortex             *engine.ProfitVortex
 	GeminiClient       *bridge.GeminiClient
 	OSClient           *bridge.OpenSourceClient
 	Pi402              *pi402.Pi402Engine
@@ -98,8 +96,6 @@ func NewSovereignServer(ctx context.Context) (*SovereignServer, error) {
 	kyaManager := identity.NewKYAManager(privateKey)
 
 	return &SovereignServer{
-		QuantumMirror:      engine.NewQuantumMirror(gc),
-		Vortex:             &engine.ProfitVortex{},
 		GeminiClient:       gc,
 		OSClient:           osc,
 		Pi402:              pi402Engine,
@@ -116,45 +112,16 @@ func NewSovereignServer(ctx context.Context) (*SovereignServer, error) {
 }
 
 // 1. Quantum Mirror Simulation (Gemini-Powered)
+// ponytail: STUBBED per Jules ZTR decision — engine.QuantumMirror was phantom
+// (referenced symbols didn't exist in pkg/engine). Full handler body removed.
+// Re-architect in a future phase; signature kept for RPC/connect_lite wiring.
 func (s *SovereignServer) RequestSimulation(ctx context.Context, req *pb.SimulationRequest) (*pb.SimulationResponse, error) {
 	start := time.Now()
 	failed := false
 	defer func() { recordObservation("request_simulation", time.Since(start), failed, "") }()
 	log.Printf("🚀 [Sovereign Engine] High-Fidelity Simulation Start: %s", req.GoalId)
 
-	results, err := s.QuantumMirror.Simulate(ctx, req.GoalId, int(req.Instances))
-	if err != nil {
-		failed = true
-		log.Printf("❌ Simulation failed: %v", err)
-		return nil, status.Errorf(codes.Internal, "simulation failure: %v", err)
-	}
-
-	// Calculate Aggregate Results
-	var totalScore float32
-	var totalRevenue float32
-	var reasoningChain string
-
-	for _, res := range results {
-		totalScore += res.Score
-		totalRevenue += res.RevenueUSD
-		reasoningChain += fmt.Sprintf("[%s]: %s\n", res.Persona, res.Reasoning)
-	}
-
-	avgScore := totalScore / float32(len(results))
-	avgRevenue := totalRevenue / float32(len(results))
-
-	return &pb.SimulationResponse{
-		GoalId:                 req.GoalId,
-		PredictedRoi:           1.0 + (avgScore / 10.0),
-		RiskScore:              1.0 - (avgScore / 10.0),
-		StrategyRecommendation: "Execution path verified via Gemini 3.1 Pro.",
-		EstimatedRevenueUsd:    avgRevenue,
-		Reasoning: &pb.GeminiReasoning{
-			LogicChain:      reasoningChain,
-			CriticalRisks:   []string{"Market Volatility", "Agent Drift"},
-			ConfidenceScore: fmt.Sprintf("%.2f%%", avgScore*100),
-		},
-	}, nil
+	return nil, status.Errorf(codes.Unimplemented, "engine: QuantumMirror simulation deferred — re-architecture pending (ZTR cleanup)")
 }
 
 // 2. Embodied Intent Bridge (π0.7)
@@ -492,32 +459,16 @@ func (s *SovereignServer) QueryMemory(ctx context.Context, req *pb.MemoryQuery) 
 }
 
 // 5. Profit Vortex (Pattern 4: Digital Darwinism)
-
+// ponytail: STUBBED per Jules ZTR decision — engine.ProfitVortex was phantom.
+// Re-architect in a future phase.
 func (s *SovereignServer) EvaluateVortex(ctx context.Context, req interface{}) (interface{}, error) {
-	m, ok := req.(map[string]interface{})
-	if !ok {
-		return nil, fmt.Errorf("invalid vortex request type")
-	}
-
-	agentId := fmt.Sprintf("%v", m["agent_id"])
-	roi := m["actual_roi"].(float64)
-	minReq := m["min_requirement"].(float64)
-	budget := m["current_budget"].(float64)
-
-	res := s.Vortex.EvaluatePerformance(agentId, roi, minReq, budget)
-
-	return map[string]interface{}{
-		"is_solvent":         res.IsSolvent,
-		"cannibalized_amt":   res.CannibalizedAmt,
-		"remaining_budget":   res.RemainingBudget,
-		"action":             string(res.Action),
-		"sovereign_treasury": res.SovereignTreasury,
-	}, nil
+	return nil, status.Errorf(codes.Unimplemented, "engine: Profit Vortex deferred — re-architecture pending (ZTR cleanup)")
 }
 
 func (s *SovereignServer) GetTreasury(ctx context.Context, req interface{}) (interface{}, error) {
 	return map[string]interface{}{
-		"balance": engine.GlobalTreasury.GetBalance(),
+		// ponytail: engine.GlobalTreasury was phantom (ZTR cleanup); honest zero until re-architecture
+		"balance": 0,
 	}, nil
 }
 

@@ -12,7 +12,7 @@ import (
 	"testing"
 	"time"
 
-	pb "github.com/Moeabdelaziz007/PiWorker-OS/sidecar/sovereign-engine/pkg/pb"
+	pb "github.com/pai-list/PiWorker/sidecar/sovereign-engine/pkg/pb"
 )
 
 func TestCommitPayment_InvalidOrExpiredToken_IsRejectedWithVisibleSignal(t *testing.T) {
